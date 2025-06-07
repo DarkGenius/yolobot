@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 import { config } from 'dotenv';
 import { message } from 'telegraf/filters'
-import { handlePhotoMessage, handleStickerMessage, handleTextMessage } from './message_handlers';
+import { handlePhotoMessage, handleStickerMessage, handleTextMessage } from './message-handlers';
 import { logger, loggerMiddleware } from './logging';
 
 config();
@@ -18,10 +18,7 @@ bot.on(message('sticker'), handleStickerMessage);
 bot.on(message('photo'), handlePhotoMessage);
 
 // Запускаем бота
-bot.launch()
-  .then(() => {
-    logger.info('Бот запущен');
-  })
+bot.launch(() => logger.info('Бот запущен'))
   .catch((error) => {
     logger.error('Ошибка при запуске бота:', error);
   });
